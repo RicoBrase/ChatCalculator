@@ -1,14 +1,12 @@
-package dev.ricobrase.ChatCalc.events;
+package dev.ricobrase.chatcalculator.events;
 
-import dev.ricobrase.ChatCalc.termsolver.TermSolver;
-import net.minecraft.client.Minecraft;
+import dev.ricobrase.chatcalculator.termsolver.TermSolver;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -52,7 +50,7 @@ public class ServerChatEventListener {
 
     private static void printInvalidCharactersMessage(EntityPlayerMP player) {
         Style redColor = (new Style()).setColor(TextFormatting.RED);
-        player.sendMessage(new TextComponentTranslation("chat.chatcalc.invalidcharacters").setStyle(redColor));
+        player.sendMessage(new TextComponentTranslation("chat.chatcalculator.invalidcharacters").setStyle(redColor));
     }
 
 }

@@ -1,4 +1,4 @@
-import dev.ricobrase.ChatCalc.termsolver.TermSolver;
+import dev.ricobrase.chatcalculator.termsolver.TermSolver;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

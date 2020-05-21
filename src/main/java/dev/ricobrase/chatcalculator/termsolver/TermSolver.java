@@ -1,9 +1,6 @@
-package dev.ricobrase.ChatCalc.termsolver;
-
-import scala.tools.cmd.Opt;
+package dev.ricobrase.chatcalculator.termsolver;
 
 import java.util.*;
-import java.util.function.DoubleBinaryOperator;
 
 public class TermSolver {
 

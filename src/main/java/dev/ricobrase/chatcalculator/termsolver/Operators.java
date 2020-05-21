@@ -1,4 +1,4 @@
-package dev.ricobrase.ChatCalc.termsolver;
+package dev.ricobrase.chatcalculator.termsolver;
 
 import java.util.function.DoubleBinaryOperator;
 
@@ -15,7 +15,7 @@ public enum Operators {
     private final boolean rightAssociative;
     private final DoubleBinaryOperator binaryOperator;
 
-    private Operators(final int priority, final boolean rightAssociative, final DoubleBinaryOperator binaryOperator) {
+    Operators(final int priority, final boolean rightAssociative, final DoubleBinaryOperator binaryOperator) {
         this.priority = priority;
         this.rightAssociative = rightAssociative;
         this.binaryOperator = binaryOperator;
