@@ -2,14 +2,12 @@ package dev.ricobrase.ChatCalc.events;
 
 import dev.ricobrase.ChatCalc.termsolver.TermSolver;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientChatEvent;
-import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,42 +15,42 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Optional;
 
-@Mod.EventBusSubscriber(Side.SERVER)
-public class ServerChatEventListener {
+@Mod.EventBusSubscriber(Side.CLIENT)
+public class ClientChatEventListener {
 
     @SubscribeEvent
-    public static void onClientChatEvent(ServerChatEvent event) {
+    public static void onClientChatEvent(ClientChatEvent event) {
 
-        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         String chatMessage = event.getMessage();
-        EntityPlayerMP player = event.getPlayer();
 
-        if(chatMessage.startsWith("@=")) {
-            Optional<String> postfix = TermSolver.transformInfixToPostfix(chatMessage.substring(2));
+        // Client only
+        if(chatMessage.startsWith("=")) {
+            Optional<String> postfix = TermSolver.transformInfixToPostfix(chatMessage.substring(1));
             if(postfix.isPresent()) {
                 try {
                     double result = TermSolver.solvePostfix(postfix.get());
-                    server.getPlayerList().sendMessage(new TextComponentString(String.format("%s is calculating %s", player.getDisplayNameString(), chatMessage.substring(2))));
+                    Minecraft.getMinecraft().player.sendMessage(new TextComponentString(chatMessage.substring(1)));
                     if (result == Math.floor(result) && !Double.isInfinite(result) && result <= Integer.MAX_VALUE && result >= Integer.MIN_VALUE) {
                         result = Math.floor(result);
-                        server.getPlayerList().sendMessage(new TextComponentString(String.format("= %d", (int)result)));
+                        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(String.format("= %d", (int)result)));
                     }else{
-                        server.getPlayerList().sendMessage(new TextComponentString(String.format("= %f", result)));
+                        Minecraft.getMinecraft().player.sendMessage(new TextComponentString(String.format("= %f", result)));
                     }
 
                 }catch (NumberFormatException ex) {
-                    printInvalidCharactersMessage(player);
+                    printInvalidCharactersMessage();
                 }
             }else{
-                printInvalidCharactersMessage(player);
+                printInvalidCharactersMessage();
             }
             event.setCanceled(true);
         }
+
     }
 
-    private static void printInvalidCharactersMessage(EntityPlayerMP player) {
+    private static void printInvalidCharactersMessage() {
         Style redColor = (new Style()).setColor(TextFormatting.RED);
-        player.sendMessage(new TextComponentTranslation("chat.chatcalc.invalidcharacters").setStyle(redColor));
+        Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("chat.chatcalc.invalidcharacters").setStyle(redColor));
     }
 
 }
