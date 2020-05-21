@@ -1,0 +1,16 @@
+[
+{
+  "modid": "chatcalc",
+  "name": "ChatCalc",
+  "description": "Calculate from ingame chat.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["RicoBrassers"],
+  "credits": "Dennis0712 for the mod idea.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
