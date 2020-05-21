@@ -5,12 +5,12 @@
   "description": "Calculate from ingame chat.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/RicoBrase/ChatCalc",
   "updateUrl": "",
   "authorList": ["RicoBrassers"],
   "credits": "Dennis0712 for the mod idea.",
-  "logoFile": "",
-  "screenshots": [],
+  "logoFile": "assets/chatcalc/logo.png",
+  "screenshots": ["assets/chatcalc/screenshot_1.png", "assets/chatcalc/screenshot_2.png"],
   "dependencies": []
 }
 ]
