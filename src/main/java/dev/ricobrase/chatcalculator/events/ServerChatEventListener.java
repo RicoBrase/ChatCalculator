@@ -30,7 +30,7 @@ public class ServerChatEventListener {
             if(postfix.isPresent()) {
                 try {
                     double result = TermSolver.solvePostfix(postfix.get());
-                    server.getPlayerList().sendMessage(new TextComponentString(String.format("%s is calculating %s", player.getDisplayNameString(), chatMessage.substring(2))));
+                    server.getPlayerList().sendMessage(new TextComponentTranslation("chat.chatcalculator.globalcalcmessage", player.getDisplayNameString(), chatMessage.substring(2)));
                     if (result == Math.floor(result) && !Double.isInfinite(result) && result <= Integer.MAX_VALUE && result >= Integer.MIN_VALUE) {
                         result = Math.floor(result);
                         server.getPlayerList().sendMessage(new TextComponentString(String.format("= %d", (int)result)));
