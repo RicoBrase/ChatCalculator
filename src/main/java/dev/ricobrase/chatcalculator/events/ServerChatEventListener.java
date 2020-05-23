@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ServerChatEventListener {
 
     @SubscribeEvent
-    public static void onClientChatEvent(ServerChatEvent event) {
+    public static void onServerChatEvent(ServerChatEvent event) {
 
         MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         String chatMessage = event.getMessage();
