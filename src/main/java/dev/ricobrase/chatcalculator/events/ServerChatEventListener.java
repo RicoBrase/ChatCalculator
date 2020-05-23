@@ -25,7 +25,7 @@ public class ServerChatEventListener {
         String chatMessage = event.getMessage();
         EntityPlayerMP player = event.getPlayer();
 
-        if(chatMessage.startsWith("@=")) {
+        if(chatMessage.matches("@=[^=]*")) {
             Optional<String> postfix = TermSolver.transformInfixToPostfix(chatMessage.substring(2));
             if(postfix.isPresent()) {
                 try {
