@@ -21,8 +21,12 @@ public class ClientChatEventListener {
 
         String chatMessage = event.getMessage();
 
-        // Client only
-        if(chatMessage.startsWith("=")) {
+        if(chatMessage.matches("={2}[^=]*")) {
+            event.setMessage(chatMessage.substring(1));
+            return;
+        }
+
+        if(chatMessage.matches("=[^=]*")) {
             Optional<String> postfix = TermSolver.transformInfixToPostfix(chatMessage.substring(1));
             if(postfix.isPresent()) {
                 try {
