@@ -102,6 +102,9 @@ public class TermSolver {
                 stack.push(operand);
             }catch (NumberFormatException ex) {
                 if(operators.containsKey(o)) {
+                    if(stack.size() < 2) {
+                        throw new NumberFormatException("Invalid operator, expected number");
+                    }
                     double right = stack.pop();
                     double left = stack.pop();
                     double result = operators.get(o).compute(left, right);
