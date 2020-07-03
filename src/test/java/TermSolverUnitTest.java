@@ -1,20 +1,14 @@
 import dev.ricobrase.chatcalculator.termsolver.TermSolver;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class TermSolverUnitTest {
+import static org.junit.Assert.*;
 
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
+public class TermSolverUnitTest {
 
     @Test
     public void testTermTransform() {
@@ -55,8 +49,18 @@ public class TermSolverUnitTest {
         }
 
         // Expect a malformed input to throw a NumberFormatException
-        exception.expect(NumberFormatException.class);
-        TermSolver.solvePostfix("hello");
+        try {
+            TermSolver.solvePostfix("hello");
+            fail("No NumberFormatException");
+        } catch (NumberFormatException ignored) {
+        }
+
+        Optional<String> transformed = TermSolver.transformInfixToPostfix("2**31");
+        try {
+            transformed.ifPresent(TermSolver::solvePostfix);
+            fail("No NumberFormatException");
+        } catch (NumberFormatException ignored) {
+        }
     }
 
 }
