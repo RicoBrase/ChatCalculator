@@ -1,5 +1,7 @@
 package dev.ricobrase.chatcalculator.events;
 
+import dev.ricobrase.chatcalculator.TranslationMessages;
+import dev.ricobrase.chatcalculator.Util;
 import dev.ricobrase.chatcalculator.termsolver.TermSolver;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;
@@ -16,6 +18,8 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientChatEventListener {
 
+    private static String lastResult = null;
+
     @SubscribeEvent
     public static void onClientChatEvent(final ClientChatEvent event) {
 
@@ -31,34 +35,47 @@ public class ClientChatEventListener {
         }
 
         if(chatMessage.matches("=[^=]*")) {
-            Optional<String> postfix = TermSolver.transformInfixToPostfix(chatMessage.substring(1));
+            String termToCalculate = chatMessage.substring(1);
+
+            if(termToCalculate.contains("$0")) {
+                if (lastResult == null) {
+                    printTranslatedErrorMessage(TranslationMessages.NO_PREVIOUS_RESULT);
+                    event.setCanceled(true);
+                    return;
+                }
+
+                termToCalculate = termToCalculate.replace("$0", lastResult.replace(',', '.'));
+            }
+
+            Optional<String> postfix = TermSolver.transformInfixToPostfix(termToCalculate);
             if(postfix.isPresent()) {
                 try {
                     double result = TermSolver.solvePostfix(postfix.get());
-                    Minecraft.getInstance().player.sendMessage(new StringTextComponent(chatMessage.substring(1)), UUID.randomUUID());
-                    if (result == Math.floor(result) && !Double.isInfinite(result) && result <= Integer.MAX_VALUE && result >= Integer.MIN_VALUE) {
-                        result = Math.floor(result);
-                        Minecraft.getInstance().player.sendMessage(new StringTextComponent(String.format("= %d", (int)result)), UUID.randomUUID());
-                    }else{
-                        Minecraft.getInstance().player.sendMessage(new StringTextComponent(String.format("= %f", result)), UUID.randomUUID());
-                    }
+                    lastResult = Util.convertDoubleToString(result);
+
+                    Minecraft.getInstance().player.sendMessage(new StringTextComponent(termToCalculate), UUID.randomUUID());
+
+                    String resultString = String.format("= %s", Util.convertDoubleToString(result));
+                    Minecraft.getInstance().player.sendMessage(new StringTextComponent(resultString), UUID.randomUUID());
 
                 }catch (NumberFormatException ex) {
-                    printInvalidCharactersMessage();
+                    printTranslatedErrorMessage(TranslationMessages.INVALID_CHARACTERS);
                 }
             }else{
-                printInvalidCharactersMessage();
+                printTranslatedErrorMessage(TranslationMessages.INVALID_CHARACTERS);
             }
             event.setCanceled(true);
         }
 
     }
 
-    private static void printInvalidCharactersMessage() {
+    private static void printTranslatedErrorMessage(TranslationMessages message) {
         if(Minecraft.getInstance().player == null) return;
 
         Style redColor = Style.EMPTY.withColor(TextFormatting.RED);
-        Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("chat.chatcalculator.invalidcharacters").setStyle(redColor), UUID.randomUUID());
+        Minecraft.getInstance().player.sendMessage(new TranslationTextComponent(message.getTranslationKey()).setStyle(redColor), UUID.randomUUID());
     }
+
+
 
 }

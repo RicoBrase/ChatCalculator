@@ -1,5 +1,7 @@
 package dev.ricobrase.chatcalculator.events;
 
+import dev.ricobrase.chatcalculator.TranslationMessages;
+import dev.ricobrase.chatcalculator.Util;
 import dev.ricobrase.chatcalculator.termsolver.TermSolver;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -16,7 +18,6 @@ public class ServerChatEventListener {
 
     @SubscribeEvent
     public static void onServerChatEvent(ServerChatEvent event) {
-
         MinecraftServer server = event.getPlayer().getServer();
 
         if(server == null) {
@@ -31,27 +32,24 @@ public class ServerChatEventListener {
             if(postfix.isPresent()) {
                 try {
                     double result = TermSolver.solvePostfix(postfix.get());
-                    server.getPlayerList().broadcastMessage(new TranslationTextComponent("chat.chatcalculator.globalcalcmessage", player.getDisplayName(), chatMessage.substring(2)), ChatType.CHAT, UUID.randomUUID());
-                    if (result == Math.floor(result) && !Double.isInfinite(result) && result <= Integer.MAX_VALUE && result >= Integer.MIN_VALUE) {
-                        result = Math.floor(result);
-                        server.getPlayerList().broadcastMessage(new StringTextComponent(String.format("= %d", (int)result)), ChatType.CHAT, UUID.randomUUID());
-                    }else{
-                        server.getPlayerList().broadcastMessage(new StringTextComponent(String.format("= %f", result)), ChatType.CHAT, UUID.randomUUID());
-                    }
+                    server.getPlayerList().broadcastMessage(new TranslationTextComponent(TranslationMessages.GLOBAL_CALC.getTranslationKey(), player.getDisplayName(), chatMessage.substring(2)), ChatType.CHAT, UUID.randomUUID());
+
+                    String resultString = String.format("= %s", Util.convertDoubleToString(result));
+                    server.getPlayerList().broadcastMessage(new StringTextComponent(resultString), ChatType.CHAT, UUID.randomUUID());
 
                 }catch (NumberFormatException ex) {
-                    printInvalidCharactersMessage(player);
+                    printTranslatedErrorMessage(player, TranslationMessages.INVALID_CHARACTERS);
                 }
             }else{
-                printInvalidCharactersMessage(player);
+                printTranslatedErrorMessage(player, TranslationMessages.INVALID_CHARACTERS);
             }
             event.setCanceled(true);
         }
     }
 
-    private static void printInvalidCharactersMessage(ServerPlayerEntity player) {
+    private static void printTranslatedErrorMessage(ServerPlayerEntity player, TranslationMessages message) {
         Style redColor = Style.EMPTY.withColor(TextFormatting.RED);
-        player.sendMessage(new TranslationTextComponent("chat.chatcalculator.invalidcharacters").setStyle(redColor), UUID.randomUUID());
+        player.sendMessage(new TranslationTextComponent(message.getTranslationKey()).setStyle(redColor), UUID.randomUUID());
     }
 
 }
