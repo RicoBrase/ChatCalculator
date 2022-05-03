@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TermSolverUnitTest {
 
     @Test
-    public void testTermTransform() {
+    public void transformInfixToPostfix_ShouldReturnCorrectlyTransformedPostfixTerm() {
         Map<String, String> expectations = new HashMap<String, String>(){
             {
                 put("A*B+C", "A B * C +");
@@ -35,7 +35,7 @@ public class TermSolverUnitTest {
     }
 
     @Test
-    public void testPostfixSolve() {
+    public void solvePostfix_ShouldReturnCorrectNumber() {
         Map<String, Double> expectations = new HashMap<String, Double>(){
             {
                 put("23 2 * 4 -", 42.0D);
@@ -47,7 +47,10 @@ public class TermSolverUnitTest {
         for(Map.Entry<String, Double> entry : expectations.entrySet()) {
             assertEquals(entry.getValue(), TermSolver.solvePostfix(entry.getKey()), 0.0D);
         }
+    }
 
+    @Test
+    public void solvePostfix_ShouldThrowNumberFormatException_IfInputIsMalformed() {
         // Expect a malformed input to throw a NumberFormatException
         try {
             TermSolver.solvePostfix("hello");
