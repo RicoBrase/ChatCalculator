@@ -4,7 +4,7 @@ import java.util.*;
 
 public class TermSolver {
 
-    static Map<String, Operators> operators = new HashMap<String, Operators>(){
+    static Map<String, Operators> operators = new HashMap<>(){
         {
             put("+", Operators.PLUS);
             put("-", Operators.MINUS);
@@ -26,51 +26,45 @@ public class TermSolver {
             if(!operators.containsKey(String.valueOf(infix[i])) && infix[i] != '(' && infix[i] != ')') {
                 operand.append(infix[i]);
                 if(i < infix.length - 1) {
-                    //noinspection UnnecessaryContinue
                     continue;
                 }
-            }else{
-                if(operand.length() > 0) {
-                    try {
-                        // Double.parseDouble(operand.toString());
-                        postfix.add(operand.toString());
-                        operand = new StringBuilder();
-                    }catch (NumberFormatException ex) {
-                        // return Optional.empty();
+            }
+
+            if(operand.length() > 0) {
+                postfix.add(operand.toString());
+                operand = new StringBuilder();
+            }
+
+            if(infix[i] == '(') {
+                opStack.push("(");
+            }else if(infix[i] == ')') {
+                if(opStack.size() > 0) {
+                    String op = opStack.pop();
+                    while(!op.equals("(")) {
+                        postfix.add(op);
+                        op = opStack.pop();
+                        if(opStack.size() == 0) break;
                     }
                 }
+            }else if(operators.containsKey(String.valueOf(infix[i]))) {
+                if(opStack.size() == 0 || opStack.get(opStack.size() - 1).equals("(")) {
+                    opStack.push(String.valueOf(infix[i]));
+                }else{
 
-                if(infix[i] == '(') {
-                    opStack.push("(");
-                }else if(infix[i] == ')') {
-                    if(opStack.size() > 0) {
-                        String op = opStack.pop();
-                        while(!op.equals("(")) {
-                            postfix.add(op);
-                            op = opStack.pop();
-                            if(opStack.size() == 0) break;
-                        }
-                    }
-                }else if(operators.containsKey(String.valueOf(infix[i]))) {
-                    if(opStack.size() == 0 || opStack.get(opStack.size() - 1).equals("(")) {
+                    if(
+                        (operators.get(String.valueOf(infix[i])).getPriority() > operators.get(opStack.get(opStack.size() - 1)).getPriority()) ||
+                        (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && operators.get(String.valueOf(infix[i])).isRightAssociative())
+                    ) {
                         opStack.push(String.valueOf(infix[i]));
                     }else{
-                        //noinspection ConstantConditions
-                        if(
-                            (opStack.size() > 0 && operators.get(String.valueOf(infix[i])).getPriority() > operators.get(opStack.get(opStack.size() - 1)).getPriority()) ||
-                            (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && operators.get(String.valueOf(infix[i])).isRightAssociative())
+                        while(
+                                operators.get(String.valueOf(infix[i])).getPriority() < operators.get(opStack.get(opStack.size() - 1)).getPriority() ||
+                                (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && !operators.get(String.valueOf(infix[i])).isRightAssociative())
                         ) {
-                            opStack.push(String.valueOf(infix[i]));
-                        }else{
-                            while(
-                                    operators.get(String.valueOf(infix[i])).getPriority() < operators.get(opStack.get(opStack.size() - 1)).getPriority() ||
-                                    (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && !operators.get(String.valueOf(infix[i])).isRightAssociative())
-                            ) {
-                                postfix.add(opStack.pop());
-                                if(opStack.size() == 0) break;
-                            }
-                            opStack.push(String.valueOf(infix[i]));
+                            postfix.add(opStack.pop());
+                            if(opStack.size() == 0) break;
                         }
+                        opStack.push(String.valueOf(infix[i]));
                     }
                 }
             }
@@ -78,12 +72,6 @@ public class TermSolver {
 
         if(operand.length() > 0) {
             postfix.add(operand);
-
-            /*try {
-                // Double.parseDouble(operand.toString());
-            }catch (NumberFormatException ex) {
-                return Optional.empty();
-            }*/
         }
 
         while (opStack.size() > 0) {
@@ -101,21 +89,21 @@ public class TermSolver {
                 double operand = Double.parseDouble(o);
                 stack.push(operand);
             }catch (NumberFormatException ex) {
-                if(operators.containsKey(o)) {
-                    if(stack.size() < 2) {
-                        throw new NumberFormatException("Invalid operator, expected number");
-                    }
-                    double right = stack.pop();
-                    double left = stack.pop();
-                    double result = operators.get(o).compute(left, right);
-                    stack.push(result);
-                }else{
+                if(!operators.containsKey(o)) {
                     throw ex;
                 }
+
+                if(stack.size() < 2) {
+                    throw new NumberFormatException("Invalid operator, expected number");
+                }
+
+                double right = stack.pop();
+                double left = stack.pop();
+                double result = operators.get(o).compute(left, right);
+                stack.push(result);
             }
         }
         return stack.pop();
     }
-
 
 }

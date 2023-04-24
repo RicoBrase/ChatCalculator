@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[41,)"
 license="MIT"
 issueTrackerURL="https://github.com/RicoBrase/ChatCalculator/issues"
 [[mods]]
@@ -16,12 +16,12 @@ Calculate from ingame chat.
 [[dependencies.chatcalculator]]
 modId="forge"
 mandatory=true
-versionRange="[36,)"
+versionRange="[41,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.chatcalculator]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.16.5,1.17)"
+versionRange="[1.19,2)"
 ordering="NONE"
 side="BOTH"

@@ -2,8 +2,7 @@ package dev.ricobrase.chatcalculator;
 
 public enum TranslationMessages {
     GLOBAL_CALC("chat.chatcalculator.globalcalcmessage"),
-    INVALID_CHARACTERS("chat.chatcalculator.invalidcharacters"),
-    NO_PREVIOUS_RESULT("chat.chatcalculator.nopreviousresult");
+    INVALID_CHARACTERS("chat.chatcalculator.invalidcharacters");
 
     private final String translationKey;
     TranslationMessages(String translationKey) {

@@ -1,7 +1,6 @@
 import dev.ricobrase.chatcalculator.termsolver.TermSolver;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -12,7 +11,7 @@ public class TermSolverUnitTest {
 
     @Test
     public void transformInfixToPostfix_ShouldReturnCorrectlyTransformedPostfixTerm() {
-        Map<String, String> expectations = new HashMap<String, String>(){
+        Map<String, String> expectations = new HashMap<>(){
             {
                 put("A*B+C", "A B * C +");
                 put("A+B*C", "A B C * +");
@@ -36,7 +35,7 @@ public class TermSolverUnitTest {
 
     @Test
     public void solvePostfix_ShouldReturnCorrectNumber() {
-        Map<String, Double> expectations = new HashMap<String, Double>(){
+        Map<String, Double> expectations = new HashMap<>(){
             {
                 put("23 2 * 4 -", 42.0D);
                 put("3 4 / 9 3 + * 3 + 1 4 - -", 15.0D);

@@ -12,7 +12,8 @@ public class ChatCalculatorMod {
     public static final String MODID = "chatcalculator";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private void setup(final FMLCommonSetupEvent event) {
+    @SuppressWarnings("unused")
+    private void setup(final FMLCommonSetupEvent ignoredEvent) {
         LOGGER.info(ChatCalculatorMod.NAME + " is initializing...");
     }
 
