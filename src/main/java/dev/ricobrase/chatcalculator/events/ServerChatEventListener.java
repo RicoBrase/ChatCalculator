@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -50,7 +49,7 @@ public class ServerChatEventListener {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void printTranslatedErrorMessage(@NotNull ServerPlayer player, @NotNull TranslationMessages message) {
+    private static void printTranslatedErrorMessage(ServerPlayer player, TranslationMessages message) {
         Style redColor = Style.EMPTY.withColor(ChatFormatting.RED);
         player.sendSystemMessage(Component.translatable(message.getTranslationKey(), redColor));
     }

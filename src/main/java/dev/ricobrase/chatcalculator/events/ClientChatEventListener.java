@@ -23,7 +23,7 @@ public class ClientChatEventListener {
 
         // Double equals (==) escaping
         if(chatMessage.matches("={2}[^=]*")) {
-            event.originalMessage = chatMessage.substring(1);
+            event.setMessage(chatMessage.substring(1));
             return;
         }
 
