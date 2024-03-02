@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "chatcalculator",
+  "version": "${version}",
+  "name": "ChatCalculator",
+  "description": "Calculate from ingame chat.",
+  "authors": [
+    "RicoBrassers"
+  ],
+  "contact": {
+    "homepage": "https://github.com/RicoBrase/ChatCalculator",
+    "sources": "https://github.com/RicoBrase/ChatCalculator"
+  },
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.ricobrase.chatcalculator.ChatCalculatorMod"
+    ],
+    "client": [
+      "dev.ricobrase.chatcalculator.ChatCalculatorClientMod"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.7",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
