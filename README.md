@@ -4,6 +4,8 @@
 
 ChatCalculator is a minecraft mod that enables you to enter a mathematical formula into the chat and get it calculated ingame - without the need to leave the game!
 
+---
+<span style="text-align:left;"></span>
 ### Usage
 
 Simply type in your term, prefixed by an equals sign and press enter. The result will be sent to your chat only, your formula will not be broadcasted server wide, if in a multiplayer session.
@@ -31,4 +33,12 @@ The source code is available on GitHub, so feel free to contribute!
 
 [https://github.com/RicoBrase/ChatCalculator](https://github.com/RicoBrase/ChatCalculator)
 
-This project can also be found on Curseforge: https://www.curseforge.com/minecraft/mc-mods/chatcalculator
+---
+
+**This project can also be found on:**
+
+[![Visit Modrinth project page](https://img.shields.io/badge/Modrinth-v1.6.0_--_Fabric_%7C_Forge-%2300af5c?logo=modrinth)](https://modrinth.com/mod/chatcalculator)<br/>
+[Project page on Modrinth](https://modrinth.com/mod/chatcalculator)
+
+[![Visit CurseForge project page](https://img.shields.io/badge/CurseForge-v1.6.0_--_Fabric_%7C_Forge-%23f16436?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/chatcalculator)<br/>
+[Project page on CurseForge](https://www.curseforge.com/minecraft/mc-mods/chatcalculator)
