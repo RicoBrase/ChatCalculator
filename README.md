@@ -37,8 +37,8 @@ The source code is available on GitHub, so feel free to contribute!
 
 **This project can also be found on:**
 
-[![Visit Modrinth project page](https://img.shields.io/badge/Modrinth-v1.6.0_--_Fabric_%7C_Forge-%2300af5c?logo=modrinth)](https://modrinth.com/mod/chatcalculator)<br/>
+[![Visit Modrinth project page](https://img.shields.io/badge/Modrinth-v1.6.1_--_Fabric_%7C_Forge-%2300af5c?logo=modrinth)](https://modrinth.com/mod/chatcalculator)<br/>
 [Project page on Modrinth](https://modrinth.com/mod/chatcalculator)
 
-[![Visit CurseForge project page](https://img.shields.io/badge/CurseForge-v1.6.0_--_Fabric_%7C_Forge-%23f16436?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/chatcalculator)<br/>
+[![Visit CurseForge project page](https://img.shields.io/badge/CurseForge-v1.6.1_--_Fabric_%7C_Forge-%23f16436?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/chatcalculator)<br/>
 [Project page on CurseForge](https://www.curseforge.com/minecraft/mc-mods/chatcalculator)
