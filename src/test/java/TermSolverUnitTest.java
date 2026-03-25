@@ -22,6 +22,15 @@ public class TermSolverUnitTest {
                 put("AB*CD+EF", "AB CD * EF +");
                 put("(3+4)*(5-6)", "3 4 + 5 6 - *");
                 put("50+50-25*0+2+2", "50 50 + 25 0 * - 2 + 2 +");
+                put("6+(((1+2)+3)+4)+5", "6 1 2 + 3 + 4 + + 5 +");
+                // Following test cases from issue #6
+                // https://github.com/RicoBrase/ChatCalculator/issues/6
+                put("(1+1+1)", "1 1 + 1 +");
+                put("(1*1*1)", "1 1 * 1 *");
+                put("(1-1-1)", "1 1 - 1 -");
+                put("(1+1+1+1)", "1 1 + 1 + 1 +");
+                put("(2+5+7+9)*4", "2 5 + 7 + 9 + 4 *");
+                put("(1+1*1)", "1 1 1 * +");
             }
         };
 
