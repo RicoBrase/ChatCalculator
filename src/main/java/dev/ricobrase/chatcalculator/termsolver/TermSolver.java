@@ -58,8 +58,9 @@ public class TermSolver {
                         opStack.push(String.valueOf(infix[i]));
                     }else{
                         while(
+                                !opStack.get(opStack.size() - 1).equalsIgnoreCase("(") && (
                                 operators.get(String.valueOf(infix[i])).getPriority() < operators.get(opStack.get(opStack.size() - 1)).getPriority() ||
-                                (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && !operators.get(String.valueOf(infix[i])).isRightAssociative())
+                                (operators.get(String.valueOf(infix[i])).getPriority() == operators.get(opStack.get(opStack.size() - 1)).getPriority() && !operators.get(String.valueOf(infix[i])).isRightAssociative()))
                         ) {
                             postfix.add(opStack.pop());
                             if(opStack.size() == 0) break;
